@@ -22,6 +22,10 @@ class Cat
     return val
   end
 
+  def meow
+    return "My name is #{@name} and I eat #{@preferred_food} at #{eats_at}"
+  end
+
 
 
 end
@@ -33,3 +37,10 @@ cat2 = Cat.new("Jacky", "rice", 15)
 #Testing the eats_at method
 puts cat1.eats_at
 puts cat2.eats_at
+
+#Calling the meow method
+cat1Message = cat1.meow
+cat2Message = cat2.meow
+
+puts cat1Message
+puts cat2Message
