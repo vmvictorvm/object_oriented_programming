@@ -9,7 +9,27 @@ class Cat
     @meal_time = meal_time
   end
 
+#Convert 0 to 23 to proper time e.g: 11pm
+  def eats_at
+    if @meal_time < 12
+      val = @meal_time.to_s + " AM"
+    elsif @meal_time >= 12 && @meal_time < 24
+      val = @meal_time - 12
+      val = val.to_s + " PM"
+    else
+      puts "Invalid time"
+    end
+    return val
+  end
+
+
+
 end
 
-cat1 = Cat.new("Ruby", "pizza", "2")
-cat2 = Cat.new("Jacky", "rice", "3")
+#Create two cats
+cat1 = Cat.new("Ruby", "pizza", 11)
+cat2 = Cat.new("Jacky", "rice", 15)
+
+#Testing the eats_at method
+puts cat1.eats_at
+puts cat2.eats_at
