@@ -4,11 +4,11 @@ class Paperboy
   attr_accessor :side
   attr_accessor :earnings
 
-  def initialize(name,experience,side,earnings)
+  def initialize(name,side)
     @name = name
-    @experience = experience
+    @experience = 0
     @side = side
-    @earnings = earnings
+    @earnings = 0
   end
 
   def quota
@@ -19,14 +19,18 @@ class Paperboy
     if start_address <= end_address
       i = start_address
       total = 0
+      count = 0
       while i <= end_address do
-        if i <= quota
+        count += 1
+        if count <= quota
           total += 0.25
-        elsif i > quota
+        elsif count > quota
           total += 0.5
         end
         i += 2
       end
+      @experience += count
+      @earnings += total
       return total
     else
       puts "Error: Start address cannot be greater than end address"
@@ -35,6 +39,14 @@ class Paperboy
 
 end
 
-pBoy1 = Paperboy.new("David", 80, "even", 80)
-puts pBoy1.quota
-puts pBoy1.deliver(66,66)
+tommy = Paperboy.new("Tommy", "even")
+
+puts tommy.quota # => 50
+puts tommy.deliver(101, 220) # => 17.75
+puts tommy.earnings #=> 17.5
+#tommy.report # => "I'm Tommy, I've delivered 60 papers and I've earned $17.5 so far!"
+
+puts tommy.quota # => 80
+puts tommy.deliver(1, 150) # => 18.75
+puts tommy.earnings #=> 36.25
+#tommy.report # => "I'm Tommy, I've been delivered 134 papers and I've earned $36.25 so far!"
