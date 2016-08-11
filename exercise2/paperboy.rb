@@ -37,6 +37,9 @@ class Paperboy
     end
   end
 
+  def report
+    return "I'm #{@name}, I've delivered #{@experience} papers and I've earned #{@earnings} so far!"
+  end
 end
 
 tommy = Paperboy.new("Tommy", "even")
@@ -44,9 +47,13 @@ tommy = Paperboy.new("Tommy", "even")
 puts tommy.quota # => 50
 puts tommy.deliver(101, 220) # => 17.75
 puts tommy.earnings #=> 17.5
-#tommy.report # => "I'm Tommy, I've delivered 60 papers and I've earned $17.5 so far!"
+pBoyMessage = tommy.report # => "I'm Tommy, I've delivered 60 papers and I've earned $17.5 so far!"
+puts pBoyMessage
+
+puts "\n"
 
 puts tommy.quota # => 80
 puts tommy.deliver(1, 150) # => 18.75
 puts tommy.earnings #=> 36.25
-#tommy.report # => "I'm Tommy, I've been delivered 134 papers and I've earned $36.25 so far!"
+pBoyMessage = tommy.report # => "I'm Tommy, I've been delivered 134 papers and I've earned $36.25 so far!"
+puts pBoyMessage
