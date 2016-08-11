@@ -42,8 +42,13 @@ class Paperboy
         end
         i += 1
       end
+      #If # of paper delivered is less than quota, then minus 2 from earning
+      if delivered < quota
+        @earnings += total-2
+      else
+        @earnings += total
+      end
       @experience += delivered
-      @earnings += total
       return total
     else
       puts "Error: Start address cannot be greater than end address"
