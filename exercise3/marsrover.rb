@@ -2,6 +2,8 @@ class MarsRover
   attr_accessor :xCoord
   attr_accessor :yCoord
   attr_accessor :direction
+  attr_accessor :xMax
+  attr_accessor :yMax
 
 
   def initialize(xCoord, yCoord, direction)
@@ -12,7 +14,7 @@ class MarsRover
 
 
   def read_instruction
-    puts "Please enter your input"
+    puts "Please enter your instructions: L = Left, R = Right and M = Move"
 
     # Converting string to array
     inputString = gets.chomp
@@ -30,18 +32,18 @@ class MarsRover
   end
 
 
-  # This method will chnage the X, Y coordinate
+  # This method will change the X, Y coordinate
   def move
-    if @direction == "N"
+    if @direction == "N" && (@yCoord + 1) <= @yMax
       @yCoord += 1
-    elsif @direction == "S"
+    elsif @direction == "S" && (@yCoord - 1) >= 0
       @yCoord -= 1
-    elsif @direction == "W"
+    elsif @direction == "W" && (@xCoord - 1) >= 0
       @xCoord -= 1
-    elsif @direction == "E"
+    elsif @direction == "E" && (@xCoord + 1) <= @xMax
       @xCoord += 1
     else
-      puts "Invalid direction"
+      puts "You cannot move outside of the plateau!"
     end
   end
 
@@ -84,17 +86,16 @@ end
 # Getting plateau size input from user in this format "5 5"
 puts "Please enter plateau size. e.g: 5 5"
 plateauSizeInput = gets.chomp
-plateauSizeArray =  inputString.split(" ")
+plateauSizeArray =  plateauSizeInput.split(" ")
 
 puts "Please enter initial rover location"
 initRoverLocationInput = gets.chomp
 initRoverLocationInputArray = initRoverLocationInput.split(" ")
 
+rover1 = MarsRover.new(initRoverLocationInputArray[0].to_i,initRoverLocationInputArray[1].to_i,initRoverLocationInputArray[2])
+#Immediately after create the object, set the plateau size for max x and y coordinate
+rover1.xMax = plateauSizeArray[0].to_i
+rover1.yMax = plateauSizeArray[1].to_i
 
-
-
-rover1 = MarsRover.new(p,,"N")
-#rover1.read_instruction
-#puts rover1.xCoord
-#puts rover1.yCoord
-#puts rover1.direction
+rover1.read_instruction
+puts "The rover1 current direction is #{rover1.xCoord} #{rover1.yCoord} #{rover1.direction}"
