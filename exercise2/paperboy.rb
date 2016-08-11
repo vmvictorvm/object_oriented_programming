@@ -12,24 +12,37 @@ class Paperboy
   end
 
   def quota
-    return @experience/2 + 50
+    val = @experience/2.0 + 50.0
+    return val.round
   end
+
+#Helper method to determine odd/even number
+  def currentSide(num)
+    if num%2 == 0
+      return "even"
+    else
+      return "odd"
+    end
+  end
+
 
   def deliver(start_address, end_address)
     if start_address <= end_address
       i = start_address
       total = 0
-      count = 0
+      delivered = 0
       while i <= end_address do
-        count += 1
-        if count <= quota
-          total += 0.25
-        elsif count > quota
-          total += 0.5
+        if currentSide(i) == @side
+          delivered += 1
+          if delivered <= quota
+            total += 0.25
+          elsif delivered > quota
+            total += 0.5
+          end
         end
-        i += 2
+        i += 1
       end
-      @experience += count
+      @experience += delivered
       @earnings += total
       return total
     else
