@@ -89,6 +89,9 @@ $/ = "END"
 user_input = STDIN.gets
 #raise user_input.inspect
 #raise user_input.each_line.inspect
+
+aryRovers = []
+
 i =0
 user_input.split("\n").each do |line|
   next if line == "END"
@@ -97,37 +100,29 @@ user_input.split("\n").each do |line|
     if i == 1  #If it is the very first line, then this is the plateau size
       plateauSizeInput = line
       @plateauSizeArray =  plateauSizeInput.split(" ")
-    elsif i == 2  #If even # --> Current position of the rover
+    elsif i % 2 == 0  #If even # --> Current position of the rover
       initRoverLocationInput = line
       @initRoverLocationInputArray = initRoverLocationInput.split(" ")
-    elsif i == 3 # odd # ----> This line is the instructions for the rover
+      @rover = MarsRover.new(@initRoverLocationInputArray[0].to_i,@initRoverLocationInputArray[1].to_i,@initRoverLocationInputArray[2])
+      #Immediately after create the object, set the plateau size for max x and y coordinate
+      @rover.xMax = @plateauSizeArray[0].to_i
+      @rover.yMax = @plateauSizeArray[1].to_i
+    else # odd # ----> This line is the instructions for the rover
       inputString = line
       @inputArray =  inputString.split("")
-    elsif i == 4
-      initRoverLocationInput = line
-      @initRoverLocationInputArray2 = initRoverLocationInput.split(" ")
-    elsif i == 5
-      inputString = line
-      @inputArray2 =  inputString.split("")
+      @rover.read_instruction(@inputArray)
+      aryRovers << @rover
     end
 end
 
-rover1 = MarsRover.new(@initRoverLocationInputArray[0].to_i,@initRoverLocationInputArray[1].to_i,@initRoverLocationInputArray[2])
-#Immediately after create the object, set the plateau size for max x and y coordinate
-rover1.xMax = @plateauSizeArray[0].to_i
-rover1.yMax = @plateauSizeArray[1].to_i
-rover1.read_instruction(@inputArray)
-
-puts "Rover 1: #{rover1.xCoord} #{rover1.yCoord} #{rover1.direction}"
 
 
-rover2 = MarsRover.new(@initRoverLocationInputArray2[0].to_i,@initRoverLocationInputArray2[1].to_i,@initRoverLocationInputArray2[2])
-#Immediately after create the object, set the plateau size for max x and y coordinate
-rover2.xMax = @plateauSizeArray[0].to_i
-rover2.yMax = @plateauSizeArray[1].to_i
-rover2.read_instruction(@inputArray2)
+aryRovers.each do |ary|
+  puts "#{ary.xCoord} #{ary.yCoord} #{ary.direction}"
+end
 
-puts "Rover 2: #{rover2.xCoord} #{rover2.yCoord} #{rover2.direction}"
+
+
 
 
 ### Alternate input ###
